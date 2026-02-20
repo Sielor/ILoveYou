@@ -1,0 +1,32 @@
+{
+  "name": "iloveyou",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Sielor/ILoveYou#readme",
+  "bugs": {
+    "url": "https://github.com/Sielor/ILoveYou/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sielor/ILoveYou.git"
+  },
+  "license": "ISC",
+  "author": "Sielor",
+  "type": "commonjs",
+  "main": "main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "@eslint/css": "^0.14.1",
+    "@eslint/js": "^10.0.1",
+    "@eslint/json": "^1.0.1",
+    "@eslint/markdown": "^7.5.1",
+    "eslint": "^10.0.1",
+    "globals": "^17.3.0"
+  },
+  "dependencies": {
+    "vite": "^7.3.1"
+  }
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Open Your Heart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<div class="scene">
+  <div class="card-3d" id="card3d">
+    <div class="card-inner" id="cardInner">
+
+      <!-- FRONT: Heart with "Open?" on hover -->
+      <div class="card-face card-front">
+        <div class="heart-svg-wrap">
+          <svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg">
+            <path id="heartPathFront" d="M50 80 C50 80 8 52 8 27 C8 14 18 5 30 5 C38 5 46 10 50 19 C54 10 62 5 70 5 C82 5 92 14 92 27 C92 52 50 80 50 80 Z"/>
+          </svg>
+          <span class="open-label">Open?</span>
+        </div>
+      </div>
+
+      <!-- BACK: Heart in new shade + compliment text -->
+      <div class="card-face card-back">
+        <div class="heart-svg-wrap">
+          <svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg">
+            <path id="heartPathBack" d="M50 80 C50 80 8 52 8 27 C8 14 18 5 30 5 C38 5 46 10 50 19 C54 10 62 5 70 5 C82 5 92 14 92 27 C92 52 50 80 50 80 Z"/>
+          </svg>
+          <p class="compliment-text" id="complimentText"></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

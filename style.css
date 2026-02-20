@@ -1,0 +1,169 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #1c1c20;
+  --text: #f0e6e6;
+}
+
+body {
+  background: var(--bg);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Lato', sans-serif;
+  overflow: hidden;
+}
+
+.scene {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  perspective: 900px;
+}
+
+/* ── 3D flip container ── */
+.card-3d {
+  width: 550px;
+  height: 550px;
+  cursor: pointer;
+  perspective: 1400px;
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.75s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+}
+
+.card-3d.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* ── Shared face styles ── */
+.card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+/* ── Heart SVG wrapper ── */
+.heart-svg-wrap {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heart-svg-wrap svg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+
+.heart-svg-wrap path {
+  transition: fill 0.3s ease;
+}
+
+/* Front heart default color */
+#heartPathFront {
+  fill: #c1121f;
+}
+
+/* ── "Open?" label ── */
+.open-label {
+  height: 5.5rem;
+  position: relative;
+  z-index: 2;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 2rem;
+  color: rgba(255, 220, 220, 0);
+  letter-spacing: 0.06em;
+  pointer-events: none;
+  transition: color 0.35s ease;
+  text-align: center;
+  user-select: none;
+}
+
+.card-3d:hover:not(.flipped) .open-label {
+  color: rgba(255, 225, 225, 0.92);
+}
+
+/* ── Compliment text ── */
+.compliment-text {
+  height: 7.5rem;
+  position: relative;
+  z-index: 2;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.45rem;
+  color: rgba(255, 225, 225, 0.93);
+  line-height: 1.7;
+  text-align: center;
+  padding: 0 60px;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── Petal rain ── */
+.petal {
+  position: fixed;
+  pointer-events: none;
+  opacity: 0;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  0%   { opacity: 0.75; transform: translateY(0) rotate(0deg); }
+  100% { opacity: 0;    transform: translateY(100vh) rotate(380deg); }
+}
+
+/* ── Pre-flip animations ── */
+@keyframes pre-spin {
+  0%   { transform: rotate(0deg) scale(1); }
+  60%  { transform: rotate(300deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes pre-jump {
+  0%   { transform: translateY(0) scale(1); }
+  30%  { transform: translateY(-55px) scale(1.08); }
+  55%  { transform: translateY(-20px) scale(1.04); }
+  75%  { transform: translateY(-38px) scale(1.06); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes pre-grow {
+  0%   { transform: scale(1); }
+  55%  { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+.card-3d.anim-spin  .card-inner { animation: pre-spin  0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.card-3d.anim-jump  .card-inner { animation: pre-jump  0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.card-3d.anim-grow  .card-inner { animation: pre-grow  0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+/* idle heartbeat */
+@keyframes idle-beat {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.05); }
+}
+
+.card-3d .card-front .heart-svg-wrap {
+  animation: idle-beat 2.4s ease-in-out infinite;
+}
