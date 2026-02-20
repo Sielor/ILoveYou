@@ -73,7 +73,6 @@ function spawnPetals() {
   }
 }
 
-const PRE_ANIMS = ['anim-spin', 'anim-jump', 'anim-grow', null]; // null = no pre-anim
 let busy = false;
 
 function clearAnimClasses() {
