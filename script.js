@@ -132,7 +132,7 @@ card3d.addEventListener('click', () => {
   else if (roll < 0.34) preAnim = 'anim-jump';
   else if (roll < 0.50) preAnim = 'anim-grow';
 
-  if (preAnim) {
+  if (preAnim && !isFlipped) {
     busy = true;
     clearAnimClasses();
     // Pause the flip transition during pre-anim
