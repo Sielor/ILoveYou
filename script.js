@@ -82,6 +82,20 @@ const backShades = [
   "#6a0572", // dark plum
 ];
 
+const PRE_ANIMS = [
+  'anim-spin',
+  'anim-jump',
+  'anim-grow',
+  'anim-wobble',
+  'anim-shake',
+  'anim-bounce',
+  'anim-pulse',
+  'anim-swing',
+  'anim-drop',
+  'anim-spin-shrink',
+  'anim-rubber',
+];
+
 const card3d = document.getElementById('card3d');
 const heartFront = document.getElementById('heartPathFront');
 const heartBack = document.getElementById('heartPathBack');
@@ -120,7 +134,7 @@ function spawnPetals() {
 let busy = false;
 
 function clearAnimClasses() {
-  card3d.classList.remove('anim-spin', 'anim-jump', 'anim-grow');
+  card3d.classList.remove(...PRE_ANIMS);
 }
 
 function doFlip() {
@@ -144,11 +158,9 @@ card3d.addEventListener('click', () => {
   if (busy) return;
 
   // ~50% chance of a pre-flip animation
-  const roll = Math.random();
-  let preAnim = null;
-  if (roll < 0.17)      preAnim = 'anim-spin';
-  else if (roll < 0.34) preAnim = 'anim-jump';
-  else if (roll < 0.50) preAnim = 'anim-grow';
+  const preAnim = Math.random() < 0.65
+    ? PRE_ANIMS[Math.floor(Math.random() * PRE_ANIMS.length)]
+    : null;
 
   if (preAnim && !isFlipped) {
     busy = true;
