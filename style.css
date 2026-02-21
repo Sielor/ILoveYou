@@ -266,6 +266,11 @@ body {
   .card-3d {
     width: 320px;
     height: 320px;
+    /* Removes the blue/grey tap highlight on mobile */
+    -webkit-tap-highlight-color: transparent;
+
+    /* Prevents SVG and content from being dragged/selected on iOS */
+    -webkit-touch-callout: none;
   }
 
   .heart-svg-wrap {
