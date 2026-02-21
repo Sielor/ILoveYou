@@ -139,7 +139,8 @@ body {
   100% { opacity: 0;    transform: translateY(100vh) rotate(380deg); }
 }
 
-/* ── Pre-flip animations ── */
+/* ── Pre-flip keyframes ── */
+
 @keyframes pre-spin {
   0%   { transform: rotate(0deg) scale(1); }
   60%  { transform: rotate(300deg) scale(1.1); }
@@ -160,14 +161,96 @@ body {
   100% { transform: scale(1); }
 }
 
-.card-3d.anim-spin  .card-inner { animation: pre-spin  0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-.card-3d.anim-jump  .card-inner { animation: pre-jump  0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-.card-3d.anim-grow  .card-inner { animation: pre-grow  0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+@keyframes pre-wobble {
+  0%   { transform: rotate(0deg) scale(1); }
+  15%  { transform: rotate(-18deg) scale(1.05); }
+  35%  { transform: rotate(14deg) scale(1.08); }
+  55%  { transform: rotate(-10deg) scale(1.05); }
+  75%  { transform: rotate(6deg) scale(1.02); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+@keyframes pre-shake {
+  0%   { transform: translateX(0); }
+  15%  { transform: translateX(-18px) rotate(-4deg); }
+  30%  { transform: translateX(16px) rotate(4deg); }
+  45%  { transform: translateX(-12px) rotate(-3deg); }
+  60%  { transform: translateX(10px) rotate(2deg); }
+  75%  { transform: translateX(-6px) rotate(-1deg); }
+  100% { transform: translateX(0) rotate(0deg); }
+}
+
+@keyframes pre-bounce {
+  0%   { transform: scale(1, 1) translateY(0); }
+  20%  { transform: scale(1.15, 0.85) translateY(0); }
+  40%  { transform: scale(0.9, 1.15) translateY(-60px); }
+  60%  { transform: scale(1.08, 0.92) translateY(0); }
+  75%  { transform: scale(0.96, 1.06) translateY(-20px); }
+  90%  { transform: scale(1.02, 0.98) translateY(0); }
+  100% { transform: scale(1, 1) translateY(0); }
+}
+
+@keyframes pre-pulse {
+  0%   { transform: scale(1); }
+  20%  { transform: scale(1.25); }
+  35%  { transform: scale(1.05); }
+  55%  { transform: scale(1.3); }
+  70%  { transform: scale(1.05); }
+  85%  { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+@keyframes pre-swing {
+  0%   { transform: rotate(0deg); transform-origin: top center; }
+  20%  { transform: rotate(20deg); transform-origin: top center; }
+  45%  { transform: rotate(-16deg); transform-origin: top center; }
+  65%  { transform: rotate(10deg); transform-origin: top center; }
+  80%  { transform: rotate(-6deg); transform-origin: top center; }
+  100% { transform: rotate(0deg); transform-origin: top center; }
+}
+
+@keyframes pre-drop {
+  0%   { transform: translateY(-80px) scale(0.8); opacity: 0.4; }
+  50%  { transform: translateY(14px) scale(1.08); opacity: 1; }
+  70%  { transform: translateY(-8px) scale(0.97); }
+  85%  { transform: translateY(4px) scale(1.02); }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes pre-spin-shrink {
+  0%   { transform: rotate(0deg) scale(1); }
+  40%  { transform: rotate(180deg) scale(0.4); }
+  70%  { transform: rotate(300deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes pre-rubber {
+  0%   { transform: scale(1, 1); }
+  20%  { transform: scale(1.4, 0.6); }
+  35%  { transform: scale(0.75, 1.25); }
+  50%  { transform: scale(1.2, 0.85); }
+  65%  { transform: scale(0.9, 1.1); }
+  80%  { transform: scale(1.05, 0.95); }
+  100% { transform: scale(1, 1); }
+}
+
+/* ── Animation class bindings ── */
+.card-3d.anim-spin .card-inner { animation: pre-spin 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.card-3d.anim-jump .card-inner { animation: pre-jump 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.card-3d.anim-grow .card-inner { animation: pre-grow 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.card-3d.anim-wobble .card-inner { animation: pre-wobble 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.card-3d.anim-shake .card-inner { animation: pre-shake 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.card-3d.anim-bounce .card-inner { animation: pre-bounce 0.70s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.card-3d.anim-pulse .card-inner { animation: pre-pulse 0.70s ease-in-out forwards; }
+.card-3d.anim-swing .card-inner { animation: pre-swing 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.card-3d.anim-drop .card-inner { animation: pre-drop 0.60s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.card-3d.anim-spin-shrink .card-inner { animation: pre-spin-shrink 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.card-3d.anim-rubber .card-inner { animation: pre-rubber 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
 
 /* idle heartbeat */
 @keyframes idle-beat {
   0%, 100% { transform: scale(1); }
-  50%       { transform: scale(1.05); }
+  50% { transform: scale(1.05); }
 }
 
 .card-3d .card-front .heart-svg-wrap {
@@ -220,9 +303,9 @@ body {
 }
 
 @keyframes throw-up {
-  0%   { opacity: 1;   transform: translate(0, 0) rotate(0deg) scale(1); }
-  60%  { opacity: 1;   transform: translate(var(--drift), var(--rise)) rotate(200deg) scale(1.3); }
-  100% { opacity: 0;   transform: translate(calc(var(--drift) * 1.3), calc(var(--rise) * 1.4)) rotate(360deg) scale(0.5); }
+  0%   { opacity: 1; transform: translate(0, 0) rotate(0deg) scale(1); }
+  60%  { opacity: 1; transform: translate(var(--drift), var(--rise)) rotate(200deg) scale(1.3); }
+  100% { opacity: 0; transform: translate(calc(var(--drift) * 1.3), calc(var(--rise) * 1.4)) rotate(360deg) scale(0.5); }
 }
 
 .celebrate-throw {
