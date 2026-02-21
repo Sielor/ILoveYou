@@ -167,3 +167,91 @@ body {
 .card-3d .card-front .heart-svg-wrap {
   animation: idle-beat 2.4s ease-in-out infinite;
 }
+
+.secret-wrap {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.secret-wrap.hidden {
+  opacity: 0;
+  transform: translateX(-50%) translateY(20px);
+  pointer-events: none;
+}
+
+.secret-label {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: rgba(200, 150, 150, 0.4);
+  letter-spacing: 0.1em;
+}
+
+.secret-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(200, 150, 150, 0.25);
+  color: rgba(255, 220, 220, 0.7);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-align: center;
+  width: 140px;
+  padding: 6px 4px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.secret-input:focus {
+  border-color: rgba(230, 57, 70, 0.5);
+}
+
+@keyframes throw-up {
+  0%   { opacity: 1;   transform: translate(0, 0) rotate(0deg) scale(1); }
+  60%  { opacity: 1;   transform: translate(var(--drift), var(--rise)) rotate(200deg) scale(1.3); }
+  100% { opacity: 0;   transform: translate(calc(var(--drift) * 1.3), calc(var(--rise) * 1.4)) rotate(360deg) scale(0.5); }
+}
+
+.celebrate-throw {
+  position: fixed;
+  pointer-events: none;
+  animation: throw-up linear forwards;
+}
+
+/* Drifting sideways across screen */
+@keyframes drift-across {
+  0%   { opacity: 0;   transform: translateX(0) translateY(0) rotate(0deg); }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { opacity: 0;   transform: translateX(110vw) translateY(-30px) rotate(360deg); }
+}
+
+.celebrate-drift {
+  position: fixed;
+  pointer-events: none;
+  animation: drift-across ease-in-out forwards;
+}
+
+/* Giant pop in middle of screen */
+@keyframes center-pop {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.2); }
+  40%  { opacity: 1; transform: translate(-50%, -50%) scale(1.6); }
+  70%  { opacity: 0.8; transform: translate(-50%, -50%) scale(1.2); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(2.5); }
+}
+
+.celebrate-pop {
+  position: fixed;
+  pointer-events: none;
+  font-size: 5rem;
+  transform: translate(-50%, -50%);
+  animation: center-pop 1.1s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
+  z-index: 100;
+}

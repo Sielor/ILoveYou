@@ -42,34 +42,52 @@ const compliments = [
   "I love you the most my darling♥"
 ];
 
-// Shades of red — front cycles through these on each flip back
-const redShades = [
-  "#c1121f",
-  "#9b1919",
-  "#a4262c",
-  "#d62828",
-  "#b5192b",
-  "#7b1113",
-  "#e63946",
-  "#8b0000",
+// Shades of red, purple and pink — front cycles through these on each flip back
+const frontShades = [
+  "#c1121f", // deep crimson
+  "#9b1919", // dark brick red
+  "#a4262c", // muted red
+  "#d62828", // vivid red
+  "#b5192b", // rich rose-red
+  "#7b1113", // near-black red
+  "#e63946", // bright coral red
+  "#8b0000", // dark red
+  "#ff6b9d", // hot pink
+  "#f72585", // electric magenta-pink
+  "#e91e8c", // deep hot pink
+  "#ff4d8f", // vivid strawberry pink
+  "#7b2d8b", // deep violet
+  "#9b5de5", // bright lavender-purple
+  "#c77dff", // light lilac
+  "#6a0572", // dark plum
+  "#b5179e", // magenta-purple
+  "#d63af9", // electric purple
 ];
 
-// Back heart gets a complementary shade
 const backShades = [
-  "#e63946",
-  "#c1121f",
-  "#d62828",
-  "#a4262c",
-  "#e63946",
-  "#b5192b",
-  "#9b1919",
-  "#c1121f",
+  "#e63946", // bright coral red
+  "#c1121f", // deep crimson
+  "#d62828", // vivid red
+  "#a4262c", // muted red
+  "#f72585", // electric magenta-pink
+  "#ff6b9d", // hot pink
+  "#e91e8c", // deep hot pink
+  "#ff4d8f", // vivid strawberry pink
+  "#ff85a1", // soft rose pink
+  "#b5179e", // magenta-purple
+  "#9b5de5", // bright lavender-purple
+  "#d63af9", // electric purple
+  "#c77dff", // light lilac
+  "#7b2d8b", // deep violet
+  "#6a0572", // dark plum
 ];
 
 const card3d = document.getElementById('card3d');
 const heartFront = document.getElementById('heartPathFront');
 const heartBack = document.getElementById('heartPathBack');
 const complimentEl = document.getElementById('complimentText');
+const secretWrap = document.getElementById('secretWrap');
+const secretInput = document.getElementById('secretInput');
 
 let isFlipped = false;
 let shadeIndex = 0;
@@ -91,7 +109,7 @@ function spawnPetals() {
       p.style.left = Math.random() * 100 + 'vw';
       p.style.top  = '-1.5rem';
       p.style.fontSize = (0.5 + Math.random() * 0.7) + 'rem';
-      p.style.color = redShades[Math.floor(Math.random() * redShades.length)];
+      p.style.color = frontShades[Math.floor(Math.random() * frontShades.length)];
       p.style.animationDuration = (2.2 + Math.random() * 2.5) + 's';
       document.body.appendChild(p);
       p.addEventListener('animationend', () => p.remove());
@@ -116,7 +134,7 @@ function doFlip() {
     card3d.classList.add('flipped');
   } else {
     shadeIndex++;
-    const fShade = redShades[shadeIndex % redShades.length];
+    const fShade = frontShades[shadeIndex % frontShades.length];
     heartFront.style.fill = fShade;
     card3d.classList.remove('flipped');
   }
@@ -155,3 +173,96 @@ card3d.addEventListener('click', () => {
     doFlip();
   }
 });
+
+// Replace the secretInput event listener in script.js
+
+secretInput.addEventListener('input', () => {
+  if (secretInput.value.toLowerCase().includes('reki')) {
+    secretWrap.classList.add('hidden');
+    triggerCelebration();
+  }
+});
+
+function triggerCelebration() {
+  const emojis = ['♥', '💋', '😘', '💕', '💖', '💗', '💓', '💝', '🌹', '✨', '💫', '🥰', '💞', '❣️', '💑'];
+  const colors = [...frontShades, '#ff85a1', '#ffb3c6', '#f72585', '#ff6b9d', '#ffffff', '#ffe4e1'];
+
+  // Wave 1 — immediate burst upward from bottom
+  for (let i = 0; i < 80; i++) {
+    setTimeout(() => {
+      const p = document.createElement('div');
+      p.className = 'petal celebrate-throw';
+      p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      p.style.left   = (10 + Math.random() * 80) + 'vw';
+      p.style.bottom = '0';
+      p.style.top    = 'unset';
+      p.style.fontSize = (1 + Math.random() * 2.2) + 'rem';
+      p.style.color  = colors[Math.floor(Math.random() * colors.length)];
+      const rise  = 30 + Math.random() * 65;
+      const drift = (Math.random() - 0.5) * 300;
+      const dur   = 1.8 + Math.random() * 1.6;
+      p.style.setProperty('--rise', `-${rise}vh`);
+      p.style.setProperty('--drift', `${drift}px`);
+      p.style.animationDuration = dur + 's';
+      document.body.appendChild(p);
+      p.addEventListener('animationend', () => p.remove());
+    }, i * 30);
+  }
+
+  // Wave 2 — rain from top
+  for (let i = 0; i < 60; i++) {
+    setTimeout(() => {
+      const p = document.createElement('div');
+      p.className = 'petal';
+      p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      p.style.left  = Math.random() * 100 + 'vw';
+      p.style.top   = '-2rem';
+      p.style.fontSize = (0.8 + Math.random() * 1.6) + 'rem';
+      p.style.color = colors[Math.floor(Math.random() * colors.length)];
+      p.style.animationDuration = (2.5 + Math.random() * 3) + 's';
+      document.body.appendChild(p);
+      p.addEventListener('animationend', () => p.remove());
+    }, 400 + i * 50);
+  }
+
+  // Wave 3 — floaters that drift across screen sideways
+  for (let i = 0; i < 25; i++) {
+    setTimeout(() => {
+      const p = document.createElement('div');
+      p.className = 'petal celebrate-drift';
+      p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      p.style.top   = (5 + Math.random() * 85) + 'vh';
+      p.style.left  = '-3rem';
+      p.style.fontSize = (1.2 + Math.random() * 2) + 'rem';
+      p.style.color = colors[Math.floor(Math.random() * colors.length)];
+      p.style.animationDuration = (3 + Math.random() * 3) + 's';
+      document.body.appendChild(p);
+      p.addEventListener('animationend', () => p.remove());
+    }, 200 + i * 80);
+  }
+
+  // Wave 4 — giant emojis that pop and fade in center
+  const centerEmojis = ['💋', '🥰', '💖', '😘', '💝'];
+  for (let i = 0; i < 6; i++) {
+    setTimeout(() => {
+      const p = document.createElement('div');
+      p.className = 'celebrate-pop';
+      p.textContent = centerEmojis[Math.floor(Math.random() * centerEmojis.length)];
+      p.style.left = (15 + Math.random() * 70) + 'vw';
+      p.style.top  = (15 + Math.random() * 70) + 'vh';
+      document.body.appendChild(p);
+      p.addEventListener('animationend', () => p.remove());
+    }, i * 300);
+  }
+
+  // Pulse the background a few times
+  let pulses = 0;
+  const pulseInterval = setInterval(() => {
+    document.body.style.backgroundColor = pulses % 2 === 0 ? '#2a1020' : '#1c1c20';
+    pulses++;
+    if (pulses >= 8) {
+      clearInterval(pulseInterval);
+      document.body.style.backgroundColor = '';
+    }
+  }, 180);
+}
